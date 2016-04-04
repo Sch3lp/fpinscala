@@ -68,8 +68,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h,t) =>
         if (n < 1) {
           Cons(h,t)
-        } else {
-          println("n=" + n)
+        } else { //TODO somehow doesn't work when I leave out the else?
           drop(t, n - 1)
         }
     }
@@ -85,7 +84,15 @@ object List { // `List` companion object. Contains functions for creating and wo
         }
     }
 
-  def init[A](l: List[A]): List[A] = sys.error("todo")
+  // Keep returning an init(t) until tail == Nil, and then just return Nil (because we don't want the head of that last one)
+  // Here I learned I can also break recursion using pattern matching
+  def init[A](l: List[A]): List[A] =
+    l match {
+      case Nil => Nil
+      case Cons(h,Nil) => Nil
+      case Cons(h,t) =>
+        Cons(h,init(t))
+    }
 
 
   def length[A](l: List[A]): Int = sys.error("todo")
