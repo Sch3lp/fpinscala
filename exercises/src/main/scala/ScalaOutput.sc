@@ -6,4 +6,5 @@ List.drop(List(),1)
 List.drop(List(1,2,3,4),2)
 // Why do I have to write (x:Int),
 // if dropWhile already states that it can only take a function that takes an A when also passed a List[A]?
-List.dropWhile(List(1,2,3,4), (x:Int) => x < 3)
+// Answer was in 3.3.2 :) But I don't know how I feel about readability.
+List.dropWhile(List(1,2,3,4))(x => x < 3)
