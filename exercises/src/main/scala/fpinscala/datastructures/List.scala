@@ -38,6 +38,7 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
   //TODO Question: "value that's returned does not have to be of the same type as the elements of the list"?
+  //I guess it's to be able to implement map using foldRight?
   def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = // Utility functions
     as match {
       case Nil => z
@@ -118,5 +119,6 @@ object List { // `List` companion object. Contains functions for creating and wo
   def doubleToString(l: List[Double]): List[String] =
     foldRight(l, Nil:List[String])((h,t) => Cons(h.toString,t))
 
-  def map[A,B](l: List[A])(f: A => B): List[B] = sys.error("todo")
+  def map[A,B](l: List[A])(f: A => B): List[B] =
+    foldRight(l, List[B]())((a,b) => Cons(f(a),b))
 }
