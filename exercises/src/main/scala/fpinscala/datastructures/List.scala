@@ -95,11 +95,14 @@ object List { // `List` companion object. Contains functions for creating and wo
         Cons(h,init(t))
     }
 
-
   def length[A](l: List[A]): Int =
     foldRight(l,0)((a, b) => b + 1)
 
-  def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = sys.error("todo")
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B =
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(foldLeft(xs, z)(f), x)
+    }
 
   def map[A,B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }
