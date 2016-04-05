@@ -110,5 +110,13 @@ object List { // `List` companion object. Contains functions for creating and wo
   def productLeft(ns: List[Double]): Double =
     foldLeft(ns, 1.0)(_ * _)
 
+  //TODO Question: WHY U NO WORK?!
+  def reverse[A](l: List[A]): List[A] =
+    foldLeft(l, List[A]())((bs,as) => Cons(as,bs))
+
+  // TODO Question: what on gods blue earth is Nil:List[String] ???
+  def doubleToString(l: List[Double]): List[String] =
+    foldRight(l, Nil:List[String])((h,t) => Cons(h.toString,t))
+
   def map[A,B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }

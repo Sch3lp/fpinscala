@@ -1,4 +1,5 @@
 def List = fpinscala.datastructures.List
+//def Nil = fpinscala.datastructures.Nil
 List.tail(List(1,2,3,4))
 List.setHead(List(2,3,4),1)
 List.setHead(List(),1)
@@ -14,3 +15,6 @@ List.length(List(4,3,2,1,0))
 List.foldLeft(List(1,2,3,4),0)((b,a)=> a + b)
 List.sumLeft(List(1,2,3,4))
 List.productLeft(List(1.0,2.0,3.0))
+List.reverse(List(1,2,3,4))
+List.reverse(List(4,3,2,1))
+List.reverse(List("A","B","C"))
