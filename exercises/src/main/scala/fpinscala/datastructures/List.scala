@@ -37,6 +37,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h,t) => Cons(h, append(t, a2))
     }
 
+  //TODO Question: "value that's returned does not have to be of the same type as the elements of the list"?
   def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = // Utility functions
     as match {
       case Nil => z
@@ -68,7 +69,7 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h,t) =>
         if (n < 1) {
           Cons(h,t)
-        } else { //TODO somehow doesn't work when I leave out the else?
+        } else { //TODO Question: somehow doesn't work when I leave out the else?
           drop(t, n - 1)
         }
     }
@@ -95,7 +96,8 @@ object List { // `List` companion object. Contains functions for creating and wo
     }
 
 
-  def length[A](l: List[A]): Int = sys.error("todo")
+  def length[A](l: List[A]): Int =
+    foldRight(l,0)((a, b) => b + 1)
 
   def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = sys.error("todo")
 
