@@ -23,7 +23,7 @@ object List { // `List` companion object. Contains functions for creating and wo
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 
-  val x = List(1,2,3,4,5) match {
+  val derp = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42
     case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
@@ -102,7 +102,8 @@ object List { // `List` companion object. Contains functions for creating and wo
   def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B =
     as match {
       case Nil => z
-      case Cons(x, xs) => f(foldLeft(xs, z)(f), x)
+      case Cons(x, xs) =>
+        foldLeft(xs, f(z,x))(f)
     }
 
   def sumLeft(ns: List[Int]): Int =
@@ -111,9 +112,8 @@ object List { // `List` companion object. Contains functions for creating and wo
   def productLeft(ns: List[Double]): Double =
     foldLeft(ns, 1.0)(_ * _)
 
-  //TODO Question: WHY U NO WORK?!
   def reverse[A](l: List[A]): List[A] =
-    foldLeft(l, List[A]())((bs,as) => Cons(as,bs))
+    foldLeft(l, List[A]())((bs,a) => Cons(a,bs))
 
   // TODO Question: what on gods blue earth is Nil:List[String] ???
   def doubleToString(l: List[Double]): List[String] =

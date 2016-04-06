@@ -17,3 +17,5 @@ List.reverse(List(1,2,3,4)) //TODO Question: Y U NO WORK?!
 List.reverse(List(4,3,2,1)) //TODO Question: Y U NO WORK?!
 //List.reverse(List("A","B","C")) //TODO Question: Y U BREAK ALL THAT FOLLOWS?!
 List.map(List(1, 2, 3, 4))((a) => 42)
+
+List.reverse(List(1,2,3,4)) == List(4,3,2,1)
