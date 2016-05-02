@@ -37,12 +37,18 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h,t) => Cons(h, append(t, a2))
     }
 
-  //TODO Question: "value that's returned does not have to be of the same type as the elements of the list"?
-  //I guess it's to be able to implement map using foldRight?
   def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = // Utility functions
     as match {
       case Nil => z
-      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+      case Cons(x, xs) =>
+        f(x, foldRight(xs, z)(f))
+    }
+
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B =
+    as match {
+      case Nil => z
+      case Cons(x, xs) =>
+        foldLeft(xs, f(z,x))(f)
     }
 
   def sum2(ns: List[Int]) =
@@ -99,13 +105,6 @@ object List { // `List` companion object. Contains functions for creating and wo
   def length[A](l: List[A]): Int =
     foldRight(l,0)((a, b) => b + 1)
 
-  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B =
-    as match {
-      case Nil => z
-      case Cons(x, xs) =>
-        foldLeft(xs, f(z,x))(f)
-    }
-
   def sumLeft(ns: List[Int]): Int =
     foldLeft(ns, 0)(_ + _)
 
@@ -115,7 +114,6 @@ object List { // `List` companion object. Contains functions for creating and wo
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, List[A]())((bs,a) => Cons(a,bs))
 
-  // TODO Question: what on gods blue earth is Nil:List[String] ???
   def doubleToString(l: List[Double]): List[String] =
     foldRight(l, Nil:List[String])((h,t) => Cons(h.toString,t))
 
