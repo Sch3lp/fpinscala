@@ -25,10 +25,11 @@ def tree3 = Branch(Leaf(1),Branch(Leaf(2),Leaf(3)))
 def tree32 = Branch(Branch(Leaf(2),Leaf(3)),Leaf(1))
 
 val leftBranch = Branch(Leaf(1),Leaf(2))
-val rightBranch = Branch(Leaf(3),Branch(Leaf(4),Leaf(5)))
+val rightBranch = Branch(Leaf(5),Branch(Leaf(4),Leaf(3)))
 
 def tree5 = Branch(leftBranch,rightBranch)
 Tree.size(tree1)
 Tree.size(tree3)
 Tree.size(tree32)
 Tree.size(tree5)
+Tree.maximum(tree5)
