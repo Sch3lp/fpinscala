@@ -65,6 +65,7 @@ object Tree {
 
   //TODO Remark: I don't immediately see the similarity between map and maximum or size.
   //TODO Remark: Is it that we're always "recursing" with both our sides of a Branch and combining those results with a +, a max or in a new Branch?
+  //TODO Remark: Second insight: or maybe fold is supposed to be a higher order function?
   def fold[A, B, C](t: Tree[A])(f: (A, B) => C): C =
     t match {
       case Leaf(a) =>
