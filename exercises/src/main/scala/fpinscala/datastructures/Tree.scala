@@ -38,6 +38,39 @@ object Tree {
       case Branch(l, r) => Branch(map(l)(f), map(r)(f))
     }
 
-//  def fold
+
+  def foldSize[A](tree: Tree[A]): Int =
+    tree match {
+      case Leaf(_) => 1
+      case Branch(l, r) => 1 + foldSize(l) + foldSize(r)
+    }
+
+  def foldMaximum(t: Tree[Int]): Int =
+    t match {
+      case Leaf(a) => a
+      case Branch(l, r) => foldMaximum(l) max foldMaximum(r)
+    }
+
+  def foldDepth[A](t: Tree[A]): Int =
+    t match {
+      case Leaf(_) => 0
+      case Branch(l, r) => 1 + (foldDepth(l) max foldDepth(r))
+    }
+
+  def foldMap[A, B](t: Tree[A])(f: A => B): Tree[B] =
+    t match {
+      case Leaf(a) => Leaf(f(a))
+      case Branch(l, r) => Branch(foldMap(l)(f), foldMap(r)(f))
+    }
+
+  //TODO Remark: I don't immediately see the similarity between map and maximum or size.
+  //TODO Remark: Is it that we're always "recursing" with both our sides of a Branch and combining those results with a +, a max or in a new Branch?
+  def fold[A, B, C](t: Tree[A])(f: (A, B) => C): C =
+    t match {
+      case Leaf(a) =>
+      case Branch(l, r) =>
+    }
 }
+
+//TODO Question: can you add + as a function?
 
