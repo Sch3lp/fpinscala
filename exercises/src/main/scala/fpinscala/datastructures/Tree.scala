@@ -42,19 +42,19 @@ object Tree {
   def foldSize[A](tree: Tree[A]): Int =
     tree match {
       case Leaf(_) => 1
-      case Branch(l, r) => 1 + foldSize(l) + foldSize(r)
+      case Branch(l, r) => 1 + fold(l,r,+)
     }
 
   def foldMaximum(t: Tree[Int]): Int =
     t match {
       case Leaf(a) => a
-      case Branch(l, r) => foldMaximum(l) max foldMaximum(r)
+      case Branch(l, r) => fold(l,r,max)
     }
 
   def foldDepth[A](t: Tree[A]): Int =
     t match {
       case Leaf(_) => 0
-      case Branch(l, r) => 1 + (foldDepth(l) max foldDepth(r))
+      case Branch(l, r) => 1 + fold(l,r,max)
     }
 
   def foldMap[A, B](t: Tree[A])(f: A => B): Tree[B] =
