@@ -1,7 +1,5 @@
 package fpinscala.datastructures
 
-import javax.print.DocFlavor.BYTE_ARRAY
-
 sealed trait Tree[+A]
 
 case class Leaf[A](value: A) extends Tree[A]
@@ -40,22 +38,13 @@ object Tree {
 
 
   def foldSize[A](tree: Tree[A]): Int =
-    tree match {
-      case Leaf(_) => 1
-      case Branch(l, r) => fold((l,r) => {1 + size(l) + size(r)})
-    }
+    fold(tree)(tree => 1)((l,r) => 1 + l + r)
 
   def foldMaximum(t: Tree[Int]): Int =
-    t match {
-      case Leaf(a) => a
-      case Branch(l, r) => maximum(l) max maximum(r)
-    }
+    fold(t)(a => a)((l,r) => l max r)
 
   def foldDepth[A](t: Tree[A]): Int =
-    t match {
-      case Leaf(_) => 0
-      case Branch(l, r) => 1 + (depth(l) max depth(r))
-    }
+    fold(t)(a => 0)((l,r) => 1 + l max r)
 
   def foldMap[A, B](t: Tree[A])(f: A => B): Tree[B] =
     t match {
@@ -67,14 +56,12 @@ object Tree {
   //TODO Remark: Is it that we're always "recursing" with both our sides of a Branch and combining those results with a +, a max or in a new Branch?
   //TODO Remark: Second insight: or maybe fold is supposed to be a higher order function?
   //TODO Remark: Third insight: tried to `fold(l,r)(someFunc)`, but then noticed I want to match on one param, then figured out I probably want to extract the Leaf() case as well (maybe as an `accumulator` or whatever it's called)
-  def fold[A, B, C](t: Tree[A])(f: (A, B) => C): C =
+  //TODO Remark: Changed my signature accordingly, then started implementing the different functions with fold, foldMap got me walled
+  def fold[A, B](t: Tree[A])(f: (A) => B)(g: (B,B) => B): B =
     t match {
-      case Leaf(a) =>
-      case Branch(l, r) =>
+      case Leaf(a) => f(a)
+      case Branch(l, r) => g(fold(l)(f)(g),fold(r)(f)(g))
     }
 
-//  def fold[A,B](t: Tree[A])(l: A => B)(b: (B,B) => B): B
 }
-
-//TODO Question: can you add + as a function?
 
