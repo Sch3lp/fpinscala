@@ -42,32 +42,32 @@ object Tree {
   def foldSize[A](tree: Tree[A]): Int =
     tree match {
       case Leaf(_) => 1
-      case Branch(l, r) => 1 + fold(l,r)(_+_)
+      case Branch(l, r) => fold((l,r) => {1 + size(l) + size(r)})
     }
 
   def foldMaximum(t: Tree[Int]): Int =
     t match {
       case Leaf(a) => a
-      case Branch(l, r) => fold(l,r)(_max_)
+      case Branch(l, r) => maximum(l) max maximum(r)
     }
 
   def foldDepth[A](t: Tree[A]): Int =
     t match {
       case Leaf(_) => 0
-      case Branch(l, r) => 1 + fold(l,r)(_max_)
+      case Branch(l, r) => 1 + (depth(l) max depth(r))
     }
 
   def foldMap[A, B](t: Tree[A])(f: A => B): Tree[B] =
     t match {
       case Leaf(a) => Leaf(f(a))
-      case Branch(l, r) => Branch(foldMap(l)(f), foldMap(r)(f))
+      case Branch(l, r) => Branch(map(l)(f), map(r)(f))
     }
 
   //TODO Remark: I don't immediately see the similarity between map and maximum or size.
   //TODO Remark: Is it that we're always "recursing" with both our sides of a Branch and combining those results with a +, a max or in a new Branch?
   //TODO Remark: Second insight: or maybe fold is supposed to be a higher order function?
   //TODO Remark: Third insight: tried to `fold(l,r)(someFunc)`, but then noticed I want to match on one param, then figured out I probably want to extract the Leaf() case as well (maybe as an `accumulator` or whatever it's called)
-  def fold[A, B, C](left: Tree[A], right: Tree[A])(f: (A, B) => C): C =
+  def fold[A, B, C](t: Tree[A])(f: (A, B) => C): C =
     t match {
       case Leaf(a) =>
       case Branch(l, r) =>
