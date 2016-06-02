@@ -47,10 +47,8 @@ object Tree {
     fold(t)(a => 0)((l,r) => 1 + l max r)
 
   def foldMap[A, B](t: Tree[A])(f: A => B): Tree[B] =
-    t match {
-      case Leaf(a) => Leaf(f(a))
-      case Branch(l, r) => Branch(map(l)(f), map(r)(f))
-    }
+    fold(t)(a => Leaf(f(a)): Tree[B])((l,r) => Branch(l,r))
+
 
   //TODO Remark: I don't immediately see the similarity between map and maximum or size.
   //TODO Remark: Is it that we're always "recursing" with both our sides of a Branch and combining those results with a +, a max or in a new Branch?
