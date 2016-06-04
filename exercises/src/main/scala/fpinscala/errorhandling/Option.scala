@@ -46,6 +46,12 @@ case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
 
 object Option {
+  def map2[A,B,C](optA: Option[A], optB: Option[B])(f: (A, B) => C): Option[C] = (optA, optB) match {
+    case (Some(a), Some(b)) => Some(f(a,b))
+    case _ => None
+  }
+
+
   def failingFn(i: Int): Int = {
     val y: Int = throw new Exception("fail!") // `val y: Int = ...` declares `y` as having type `Int`, and sets it equal to the right hand side of the `=`.
     try {
@@ -68,7 +74,6 @@ object Option {
     else Some(xs.sum / xs.length)
   def variance(xs: Seq[Double]): Option[Double] = sys.error("todo")
 
-  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = sys.error("todo")
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] = sys.error("todo")
 

@@ -1,4 +1,4 @@
-import fpinscala.errorhandling.{None, Some}
+import fpinscala.errorhandling.{None, Option, Some}
 
 Some("derp").map(s => s.reverse)
 None.map(s => s)
@@ -13,3 +13,10 @@ None.orElse(Some("snarf"))
 
 Some("derp").filter(s => s.contains("d"))
 Some("derp").filter(s => s.contains("z"))
+
+def snarf(a:String, b:String) = a + b
+
+val optA = Some("Lion")
+val optB = Some("-O")
+
+Option.map2(optA,optB)(snarf)
