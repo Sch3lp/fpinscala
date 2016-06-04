@@ -51,6 +51,10 @@ object Option {
     case _ => None
   }
 
+  //TODO Remark: Some explain my *BARF* reaction
+  def map2_WithFlatMap[A,B,C](optA: Option[A], optB: Option[B])(f: (A, B) => C): Option[C] =
+    optA.flatMap(a => optB.map(b => f(a, b)))
+
 
   def failingFn(i: Int): Int = {
     val y: Int = throw new Exception("fail!") // `val y: Int = ...` declares `y` as having type `Int`, and sets it equal to the right hand side of the `=`.
