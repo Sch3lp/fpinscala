@@ -14,21 +14,33 @@ sealed trait Option[+A] {
     case Some(a) => a
   }
 
-  def flatMap[B](f: A => Option[B]): Option[B] = this match {
+  def flatMap_Match[B](f: A => Option[B]): Option[B] = this match {
     case None => None
     case Some(a) => f(a)
   }
 
-  def orElse[B>:A](ob: => Option[B]): Option[B] = this match {
+  //TODO Question: In the answer, they just go _ => instead of Some(_), is this because there are only 2 possible outcomes, and None already has a case, therefore you can just write _?
+  def orElse_Match[B>:A](ob: => Option[B]): Option[B] = this match {
     case None => ob
     case Some(_) => this
   }
 
-  def filter(f: A => Boolean): Option[A] = this match {
+  def filter_Match(f: A => Boolean): Option[A] = this match {
     case None => None
     case Some(a) => if (f(a)) this
                     else None
   }
+
+  def flatMap[B](f: A => Option[B]): Option[B] =
+    map(f).getOrElse(None)
+
+  def orElse[B>:A](ob: => Option[B]): Option[B] =
+    None.getOrElse(ob)
+
+  //TODO Question: In the answer they explicitly call a new Some() instead of just returning this. What's the difference?
+  def filter(f: A => Boolean): Option[A] =
+    flatMap(a => if (f(a)) this else None)
+
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
