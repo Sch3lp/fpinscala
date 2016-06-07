@@ -55,6 +55,12 @@ object Option {
   def map2_WithFlatMap[A,B,C](optA: Option[A], optB: Option[B])(f: (A, B) => C): Option[C] =
     optA.flatMap(a => optB.map(b => f(a, b)))
 
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = a match {
+    case Nil => None
+    case optH::optT => optH.flatMap(hh => sequence(optT).map(hh :: _))
+  }
+
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = sys.error("todo")
 
   def failingFn(i: Int): Int = {
     val y: Int = throw new Exception("fail!") // `val y: Int = ...` declares `y` as having type `Int`, and sets it equal to the right hand side of the `=`.
@@ -78,8 +84,4 @@ object Option {
     else Some(xs.sum / xs.length)
   def variance(xs: Seq[Double]): Option[Double] = sys.error("todo")
 
-
-  def sequence[A](a: List[Option[A]]): Option[List[A]] = sys.error("todo")
-
-  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = sys.error("todo")
 }

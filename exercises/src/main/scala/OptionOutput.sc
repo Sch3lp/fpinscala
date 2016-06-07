@@ -20,3 +20,7 @@ val optA = Some("Lion")
 val optB = Some("-O")
 
 Option.map2(optA,optB)(snarf)
+
+Option.sequence(List(Some(1),Some(2),Some(3)))
+Option.sequence(List(Some(1),Some(2),None))
+Option.sequence(List(Some(1),None,Some(3)))
