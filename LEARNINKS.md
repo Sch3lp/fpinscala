@@ -22,4 +22,6 @@ your abstract concepts have WAAAAAAAYYYYY more weight and importance compared to
 ## Concepts vs. explicitness discussion
 `fold` in the context of `tree` vs. always use `match case`.
 Requires knowledge of concepts and those in a certain context.
- 
+
+## Options enzo
+In een Java context, denk ik wanneer ik Option zie, NIET aan FP. Dat verandert dus sinds vandaag.
