@@ -1,7 +1,11 @@
+## TODO
+Zoek op wat 'arity' betekent.
+
+
 # Chapter 3
 ## recursion == foldLeft
 In the case that you can recurse and always move through the entire list, so without a break condition, then you can *always* use foldLeft.
-  
+
 ## Nil:List[String]
 ```
 def doubleToString(l: List[Double]): List[String] =
@@ -11,7 +15,7 @@ You want an empty List, but Nil is typed with `[Nothing]` and `[Nothing]` is not
 
 ## Styling curly braces
 
-## foldLeft 
+## foldLeft
 
 ## Using foldRight but want it tail recursive? Use reverse(foldLeft)
 
@@ -25,3 +29,4 @@ Requires knowledge of concepts and those in a certain context.
 
 ## Options enzo
 In een Java context, denk ik wanneer ik Option zie, NIET aan FP. Dat verandert dus sinds vandaag.
+
